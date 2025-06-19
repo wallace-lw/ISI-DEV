@@ -1,8 +1,10 @@
+import { Layout } from "./components";
+
 function App() {
 	return (
-		<>
-			<h1>DESAFIO ISI DEV I</h1>
-		</>
+		<Layout>
+			<h1>DEV 1 TEST</h1>
+		</Layout>
 	);
 }
 
