@@ -38,7 +38,7 @@ export const Navbar = () => {
 			<footer className="w-full py-2 border-t border-accent">
 				<Button
 					variant={"ghost"}
-					className="text-red-500 cursor-pointer text-lg w-full flex justify-start px-4"
+					className="text-red-500 text-lg w-full flex justify-start px-4"
 				>
 					Sair <LogOut />
 				</Button>

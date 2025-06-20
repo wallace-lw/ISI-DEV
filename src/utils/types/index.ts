@@ -1,1 +1,1 @@
-export * from "./NavTypes";
+export * from "./nav-types";
