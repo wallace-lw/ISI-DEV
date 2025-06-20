@@ -7,7 +7,7 @@ export const Layout = () => {
 			<Navbar />
 			<div className="flex flex-col flex-1">
 				<Header />
-				<main className="flex-1 bg-white p-4 overflow-auto">
+				<main className="flex-1 px-24 py-6 overflow-auto">
 					<Outlet />
 				</main>
 			</div>

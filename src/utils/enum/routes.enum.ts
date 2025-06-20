@@ -8,7 +8,7 @@ export const ROUTES = {
 		BASE: "/dashboard",
 	},
 	RECORDS: {
-		BASE: "/record",
+		BASE: "/records",
 	},
 	ADMIN: {
 		BASE: "/admin",
