@@ -1,11 +1,15 @@
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
+import { cn } from "@/lib/utils";
 import { LogOut } from "lucide-react";
 import { DynamicIcon } from "lucide-react/dynamic";
+import { NavLink, useLocation } from "react-router";
 import { Logo } from "./components";
 import { navIcons, navLinks } from "./utils";
 
 export const Navbar = () => {
+	const location = useLocation();
+
 	return (
 		<aside className="w-56 h-full border border-accent flex flex-col justify-between">
 			<div className="flex flex-col gap-6">
@@ -15,20 +19,23 @@ export const Navbar = () => {
 				</header>
 				<nav className="flex flex-col gap-3">
 					{navLinks.map((item) => (
-						<a
+						<NavLink
 							key={item.value}
-							href={item.path}
-							className="flex items-center gap-2 hover:bg-neutral-100 transition px-4 py-2"
+							to={item.path}
+							className={cn(
+								"flex items-center gap-2 hover:bg-neutral-100 transition px-4 py-2",
+								location.pathname === item.path && "bg-neutral-200",
+							)}
 						>
 							<DynamicIcon name={navIcons[item.value]} size={24} />
 							<Label className="font-semibold cursor-pointer">
 								{item.label}
 							</Label>
-						</a>
+						</NavLink>
 					))}
 				</nav>
 			</div>
-			<footer className="w-full py-2">
+			<footer className="w-full py-2 border-t border-accent">
 				<Button
 					variant={"ghost"}
 					className="text-red-500 cursor-pointer text-lg w-full flex justify-start px-4"
