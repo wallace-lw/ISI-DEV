@@ -1,2 +1,1 @@
 export * from "./product-registration";
-export * from "./products";

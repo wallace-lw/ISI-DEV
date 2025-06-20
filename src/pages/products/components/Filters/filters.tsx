@@ -31,7 +31,7 @@ export const Filters = () => {
 					</div>
 					<Input
 						placeholder="Buscar produto..."
-						className="w-96 rounded-lg bg-background pl-8"
+						className="w-96 rounded-lg pl-8"
 					/>
 				</div>
 
