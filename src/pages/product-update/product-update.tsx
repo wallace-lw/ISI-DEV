@@ -10,7 +10,7 @@ import { Controller, useForm, type SubmitHandler } from "react-hook-form";
 import { productSchema } from "./schema";
 import type * as T from "./types";
 
-export const ProductRegistration = () => {
+export const ProductUpdate = () => {
 	const {
 		control,
 		handleSubmit,
@@ -25,7 +25,7 @@ export const ProductRegistration = () => {
 
 	return (
 		<main className="flex flex-col gap-12">
-			<PageTitle title="Cadastro de Produto" icon="file-plus-2" />
+			<PageTitle title="Editar Produto" icon="edit" />
 
 			<div className="bg-background w-full rounded-2xl">
 				<header className="border-b border-accent h-12 flex items-center w-full px-6">
@@ -129,10 +129,10 @@ export const ProductRegistration = () => {
 					</div>
 
 					<div className="flex justify-end gap-4">
-						{/* TODO: BOTÃO CANCELAR LIMPAR CAMPOS E VOLTAR A TELA ANTERIOR */}
+						{/* TODO: BOTÃO CANCELAR VOLTAR A TELA ANTERIOR */}
 						<Button variant={"outline"} type="button">
 							Cancelar
-						</Button>
+						</Button>{" "}
 						<Button type="submit">Cadastrar</Button>
 					</div>
 				</form>

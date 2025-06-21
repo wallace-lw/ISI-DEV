@@ -2,7 +2,7 @@ export const ROUTES = {
 	PRODUCTS: {
 		BASE: "/products",
 		CREATE_PRODUCT: "/products/create",
-		EDIT_PRODUCT: "products/edit",
+		EDIT_PRODUCT: "products/:id/edit",
 	},
 	DASHBOARD: {
 		BASE: "/dashboard",

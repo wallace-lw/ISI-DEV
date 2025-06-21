@@ -6,7 +6,7 @@ import {
 	TableHeader,
 	TableRow,
 } from "@/components/ui/table";
-import { formatCurrencyBRL } from "@/utils/formatters/currency";
+import { formatCurrencyBRL } from "@/utils";
 import { ActionButtons } from "./components";
 import { mockTableData, tableHeaders } from "./utils";
 
@@ -29,7 +29,7 @@ export const ProductsList = () => {
 						<TableCell>{formatCurrencyBRL(item.price / 100)}</TableCell>
 						<TableCell>{item.stock}</TableCell>
 						<TableCell align="right">
-							<ActionButtons />
+							<ActionButtons id={item.id} />
 						</TableCell>
 					</TableRow>
 				))}
