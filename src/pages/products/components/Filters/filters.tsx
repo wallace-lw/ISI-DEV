@@ -6,6 +6,8 @@ import { DynamicIcon } from "lucide-react/dynamic";
 import { Link } from "react-router";
 
 export const Filters = () => {
+	const isEmpty = true;
+
 	return (
 		<div className="mt-6 flex items-end justify-between">
 			<div className="flex gap-4 items-end">
@@ -18,9 +20,12 @@ export const Filters = () => {
 					<Label>Preço máximo</Label>
 					<Input placeholder="R$ 0,00" />
 				</div>
-				<Button className="cursor-pointer" variant={"outline"} disabled={true}>
-					<DynamicIcon name="refresh-ccw" />
-					Limpar filtros
+				<Button
+					className="cursor-pointer"
+					variant={isEmpty ? "default" : "outline"}
+				>
+					<DynamicIcon name={isEmpty ? "filter" : "refresh-ccw"} />
+					{isEmpty ? "Filtrar" : "Limpar filtros"}
 				</Button>
 			</div>
 

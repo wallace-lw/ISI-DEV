@@ -28,7 +28,7 @@ export class ErrorBoundary extends Component<T.Props, T.State> {
 						this.props.fullScreen ? "h-screen" : "h-[calc(100vh-128px)]",
 					)}
 				>
-					<DynamicIcon name="alarm-check" />
+					<DynamicIcon name="circle-alert" size={42} color="#ff0000" />
 
 					<div className="text-center">
 						<h1 className="text-2xl">Ops! Parece que algo deu errado.</h1>
