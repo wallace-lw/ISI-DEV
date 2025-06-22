@@ -25,7 +25,9 @@ export const ProductsList = () => {
 				{mockTableData.map((item) => (
 					<TableRow key={item.id} className="h-12">
 						<TableCell>{item.name}</TableCell>
-						<TableCell>{item.descritpion}</TableCell>
+						<TableCell className="max-w-[120px] truncate text-gray-500">
+							{item.descritpion}
+						</TableCell>
 						<TableCell>{formatCurrencyBRL(item.price / 100)}</TableCell>
 						<TableCell>{item.stock}</TableCell>
 						<TableCell align="right">

@@ -9,7 +9,7 @@ export const Filters = () => {
 	const isEmpty = true;
 
 	return (
-		<div className="mt-6 flex items-end justify-between">
+		<div className="mt-6 flex items-end justify-between gap-6">
 			<div className="flex gap-4 items-end">
 				<div className="flex flex-col gap-2">
 					<Label>Preço mínimo</Label>
@@ -30,20 +30,20 @@ export const Filters = () => {
 			</div>
 
 			<div className="flex gap-6">
-				<div className="relative">
+				<div className="relative flex-1">
 					<div className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground">
 						<DynamicIcon name="search" size={16} />
 					</div>
 					<Input
 						placeholder="Buscar produto..."
-						className="w-96 rounded-lg pl-8"
+						className="w-full rounded-lg pl-8"
 					/>
 				</div>
 
 				<Link to={ROUTES.PRODUCTS.CREATE_PRODUCT}>
 					<Button className="cursor-pointer">
 						<DynamicIcon name="plus" size={16} />
-						Criar produto
+						<span className="hidden lg:block">Criar produto</span>
 					</Button>
 				</Link>
 			</div>
