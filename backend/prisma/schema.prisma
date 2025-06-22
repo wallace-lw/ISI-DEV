@@ -1,0 +1,51 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Product {
+  id            String   @id @default(uuid())
+  name          String   @unique
+  description   String?
+  stock         Int
+  price         Int
+  originalPrice Int
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime? @updatedAt
+  deletedAt     DateTime?
+
+  discount ProductDiscount?
+}
+
+model Coupon {
+  id          String   @id @default(uuid())
+  code        String   @unique
+  type        String   // 'fixed' ou 'percent'
+  value       Int      // em centavos ou percentual (ex: 10% = 1000)
+  oneShot     Boolean
+  validFrom   DateTime
+  validUntil  DateTime
+  usesCount   Int      @default(0)
+  maxUses     Int?
+
+  discounts ProductDiscount[]
+
+  createdAt DateTime  @default(now())
+  updatedAt DateTime? @updatedAt
+  deletedAt DateTime?
+}
+
+model ProductDiscount {
+  productId String
+  couponId  String
+  appliedAt DateTime @default(now())
+
+  product Product @relation(fields: [productId], references: [id])
+  coupon  Coupon  @relation(fields: [couponId], references: [id])
+
+  @@id([productId])
+}
