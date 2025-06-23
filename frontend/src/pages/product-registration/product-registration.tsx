@@ -7,6 +7,9 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { DynamicIcon } from "lucide-react/dynamic";
 import { Controller, useForm, type SubmitHandler } from "react-hook-form";
 
+import { useCreateProduct } from "@/hooks";
+import { formatToCurrency } from "@/utils";
+import { Loader } from "lucide-react";
 import { productSchema } from "./schema";
 import type * as T from "./types";
 
@@ -19,8 +22,10 @@ export const ProductRegistration = () => {
 		resolver: zodResolver(productSchema),
 	});
 
+	const { mutate, isPending } = useCreateProduct();
+
 	const onSubmit: SubmitHandler<T.ProductSchema> = (data) => {
-		console.log(data);
+		mutate(data);
 	};
 
 	return (
@@ -49,13 +54,13 @@ export const ProductRegistration = () => {
 
 						<Controller
 							control={control}
-							name="product_name"
+							name="name"
 							render={({ field }) => (
 								<Input {...field} placeholder="Informe o nome do produto" />
 							)}
 						/>
 
-						<ErrorMessage message={errors.product_name?.message} />
+						<ErrorMessage message={errors.name?.message} />
 					</div>
 
 					<div className="grid gap-2">
@@ -71,7 +76,7 @@ export const ProductRegistration = () => {
 
 						<Controller
 							control={control}
-							name="product_description"
+							name="description"
 							render={({ field }) => (
 								<Textarea
 									{...field}
@@ -81,7 +86,7 @@ export const ProductRegistration = () => {
 							)}
 						/>
 
-						<ErrorMessage message={errors.product_description?.message} />
+						<ErrorMessage message={errors.description?.message} />
 					</div>
 
 					<div className="grid grid-cols-2 gap-4">
@@ -100,7 +105,16 @@ export const ProductRegistration = () => {
 								control={control}
 								name="price"
 								render={({ field }) => (
-									<Input {...field} placeholder="R$ 0,00" />
+									<Input
+										{...field}
+										value={formatToCurrency(field.value || 0)}
+										onChange={(e) => {
+											const raw = e.target.value.replace(/\D/g, "");
+											const numeric = Number(raw) / 100;
+											field.onChange(numeric);
+										}}
+										placeholder="R$ 0,00"
+									/>
 								)}
 							/>
 
@@ -121,7 +135,15 @@ export const ProductRegistration = () => {
 							<Controller
 								control={control}
 								name="stock"
-								render={({ field }) => <Input {...field} placeholder="0" />}
+								render={({ field }) => (
+									<Input
+										{...field}
+										placeholder="0"
+										onChange={(e) => {
+											field.onChange(Number(e.target.value));
+										}}
+									/>
+								)}
 							/>
 
 							<ErrorMessage message={errors.stock?.message} />
@@ -129,11 +151,19 @@ export const ProductRegistration = () => {
 					</div>
 
 					<div className="flex justify-end gap-4">
-						{/* TODO: BOTÃO CANCELAR LIMPAR CAMPOS E VOLTAR A TELA ANTERIOR */}
 						<Button variant={"outline"} type="button">
 							Cancelar
 						</Button>
-						<Button type="submit">Cadastrar</Button>
+						<Button type="submit" disabled={isPending}>
+							{isPending ? (
+								<>
+									<Loader className="w-4 h-4 mr-2 animate-spin" />
+									Processando...
+								</>
+							) : (
+								"Cadastrar"
+							)}
+						</Button>
 					</div>
 				</form>
 			</div>
