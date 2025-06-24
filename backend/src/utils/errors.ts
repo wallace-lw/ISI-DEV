@@ -1,4 +1,4 @@
-import { FastifyError, FastifyReply, FastifyRequest } from "fastify";
+import type { FastifyError, FastifyReply, FastifyRequest } from "fastify";
 
 export enum AppErrorCode {
 	VALIDATION = "VALIDATION",
