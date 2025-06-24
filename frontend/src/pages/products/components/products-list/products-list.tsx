@@ -21,8 +21,8 @@ export const ProductsList = () => {
 	return (
 		<Suspense fallback={<Loader className="w-4 h-4 mr-2 animate-spin" />}>
 			{data?.data.length ? (
-				<div className="w-full overflow-x-auto mt-6 rounded-lg drop-shadow-accent bg-background pb-5">
-					<Table className="min-w-[768px]">
+				<>
+					<Table className="min-w-[768px] bg-background shadow-sm rounded-lg mt-4">
 						<TableHeader>
 							<TableRow className="h-16">
 								{tableHeaders.map((item) => (
@@ -55,10 +55,10 @@ export const ProductsList = () => {
 						</TableBody>
 					</Table>
 					<ProductPagination
-						totalPages={data.meta.totalPages}
 						currentPage={data.meta.page}
+						totalPages={data.meta.totalPages}
 					/>
-				</div>
+				</>
 			) : (
 				<div className="h-[calc(100vh-300px)] w-full flex justify-center items-center">
 					<h1>Nenhum produto cadastrado...</h1>

@@ -38,8 +38,8 @@ export const Filters = () => {
 	};
 
 	return (
-		<div className="mt-6 flex flex-col gap-1">
-			<div className="flex items-end gap-4">
+		<div className="space-y-4">
+			<div className="grid grid-cols-1 items-end gap-4 mt-4 md:grid-cols-3">
 				<div className="relative">
 					<div className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground">
 						<DynamicIcon name="search" size={16} />
@@ -54,7 +54,7 @@ export const Filters = () => {
 
 				<form
 					onSubmit={handleSubmit(onSubmit)}
-					className="flex gap-4 items-end"
+					className="grid grid-cols-1 gap-2 md:flex md:col-span-2"
 				>
 					<div className="flex flex-col gap-2">
 						<Label>Preço mínimo</Label>
@@ -95,7 +95,7 @@ export const Filters = () => {
 							)}
 						/>
 					</div>
-					<div className="flex gap-2">
+					<div className="grid grid-cols-1 gap-2 mt-2 md:flex md:items-end">
 						<Button
 							className="cursor-pointer"
 							type="submit"

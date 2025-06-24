@@ -8,7 +8,7 @@ import { Filters, ProductsList } from "./components";
 export const Products = () => {
 	return (
 		<>
-			<div className="flex w-full justify-between pt-12">
+			<div className="flex w-full justify-between ">
 				<PageTitle title="Produtos" icon="shopping-bag" />
 
 				<Link to={ROUTES.PRODUCTS.CREATE_PRODUCT}>

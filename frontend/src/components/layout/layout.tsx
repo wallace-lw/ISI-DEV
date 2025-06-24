@@ -5,11 +5,13 @@ export const Layout = () => {
 	return (
 		<div className="h-screen flex">
 			<Navbar />
-			<div className="flex flex-col flex-1">
+			<div className="flex flex-col w-full">
 				<Header />
-				<main className="flex-1 px-24 py-6 overflow-auto bg-[#f8fbfd]">
-					<Outlet />
-				</main>
+				<div className="w-full flex-1 bg-[#f8fbfd]">
+					<main className=" container w-full mx-auto px-4 py-6">
+						<Outlet />
+					</main>
+				</div>
 			</div>
 		</div>
 	);
