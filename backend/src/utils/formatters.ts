@@ -6,3 +6,8 @@ export const formatCurrencyBRL = (value: number): string => {
 		currency: "BRL",
 	});
 };
+
+export const sanitizeString = (value: unknown): string => {
+	if (typeof value !== "string") return "";
+	return value.trim().replace(/[^\w\sÀ-ú.,-]/gi, "");
+};
