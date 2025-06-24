@@ -7,7 +7,9 @@ export const formatCurrencyBRL = (value: number): string => {
 	});
 };
 
-export const formatToCurrency = (val: string | number) => {
+export const formatToCurrency = (val?: string | number) => {
+	if (!val) return "";
+
 	const num =
 		typeof val === "number"
 			? val
