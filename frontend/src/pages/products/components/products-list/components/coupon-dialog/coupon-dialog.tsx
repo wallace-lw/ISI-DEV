@@ -1,3 +1,5 @@
+import { DynamicIcon } from "lucide-react/dynamic";
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import {
 	Dialog,
@@ -8,8 +10,6 @@ import {
 	DialogTrigger,
 } from "@/components/ui/dialog";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { DynamicIcon } from "lucide-react/dynamic";
-import { useState } from "react";
 import { CouponForm, PercentageForm } from "./components";
 
 export const CouponDialog = () => {

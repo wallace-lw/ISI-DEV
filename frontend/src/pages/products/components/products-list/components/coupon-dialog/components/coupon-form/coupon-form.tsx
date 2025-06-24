@@ -1,13 +1,15 @@
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Loader } from "lucide-react";
+import { Suspense, useState } from "react";
+import { Controller, type SubmitHandler, useForm } from "react-hook-form";
 import { ErrorMessage } from "@/components";
 import { Button } from "@/components/ui/button";
+import { DialogClose } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useState } from "react";
-import { Controller, useForm, type SubmitHandler } from "react-hook-form";
+import { useCouponsList } from "@/hooks";
 import { couponCodeSchema } from "./schema";
 import type * as T from "./types";
-import { mockedAvailableCoupons } from "./utils";
 
 export const CouponForm = ({ onSuccess }: T.CouponProps) => {
 	const [selectedCouponID, setSelecetedCouponID] = useState<string | null>();
@@ -21,7 +23,10 @@ export const CouponForm = ({ onSuccess }: T.CouponProps) => {
 		resolver: zodResolver(couponCodeSchema),
 	});
 
+	const { data } = useCouponsList();
+
 	const onSubmit: SubmitHandler<T.CouponSchema> = (data) => {
+		if (!data.coupon) return;
 		console.log(data);
 		onSuccess();
 	};
@@ -47,29 +52,31 @@ export const CouponForm = ({ onSuccess }: T.CouponProps) => {
 
 			<div className="flex flex-col gap-2 mt-6">
 				<Label className="text-xs">Cupons disponiveis para teste:</Label>
-
-				<div className="grid grid-cols-3 gap-2">
-					{mockedAvailableCoupons.map((coupon) => (
-						<Button
-							key={coupon.id}
-							variant={selectedCouponID === coupon.id ? "default" : "outline"}
-							type="button"
-							onClick={() => {
-								setSelecetedCouponID(coupon.id);
-								setValue("coupon", coupon.code);
-							}}
-						>
-							{coupon.label}
-						</Button>
-					))}
-				</div>
+				<Suspense fallback={<Loader className="w-4 h-4 animate-spin" />}>
+					<div className="grid grid-cols-3 gap-2">
+						{data?.map((coupon) => (
+							<Button
+								key={coupon.code}
+								variant={selectedCouponID === coupon.id ? "default" : "outline"}
+								type="button"
+								onClick={() => {
+									setSelecetedCouponID(coupon.id);
+									setValue("coupon", coupon.code);
+								}}
+							>
+								{coupon.code}
+							</Button>
+						))}
+					</div>
+				</Suspense>
 			</div>
 
 			<div className="flex justify-end gap-4 mt-4">
-				{/* TODO: BOTÃO CANCELAR LIMPAR CAMPOS E VOLTAR A TELA ANTERIOR */}
-				<Button variant={"outline"} type="button">
-					Cancelar
-				</Button>
+				<DialogClose asChild>
+					<Button variant={"outline"} type="button">
+						Cancelar
+					</Button>
+				</DialogClose>
 				<Button type="submit">Aplicar</Button>
 			</div>
 		</form>

@@ -1,9 +1,10 @@
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Controller, type SubmitHandler, useForm } from "react-hook-form";
 import { ErrorMessage } from "@/components";
 import { Button } from "@/components/ui/button";
+import { DialogClose } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { Controller, useForm, type SubmitHandler } from "react-hook-form";
 import { percentualSchema } from "./schema";
 import type * as T from "./types";
 
@@ -44,10 +45,11 @@ export const PercentageForm = () => {
 			<ErrorMessage message={errors.percentage?.message} />
 
 			<div className="flex justify-end gap-4 mt-4">
-				{/* TODO: BOTÃO CANCELAR LIMPAR CAMPOS E VOLTAR A TELA ANTERIOR */}
-				<Button variant={"outline"} type="button">
-					Cancelar
-				</Button>
+				<DialogClose asChild>
+					<Button variant={"outline"} type="button">
+						Cancelar
+					</Button>
+				</DialogClose>
 				<Button type="submit">Aplicar</Button>
 			</div>
 		</form>
