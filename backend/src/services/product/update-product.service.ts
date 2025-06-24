@@ -1,5 +1,5 @@
-import { CreateProduct, UpdateProduct } from "@/models/product";
-import { ProductRepository } from "@/repositories";
+import type { CreateProduct, UpdateProduct } from "@/models/product";
+import type { ProductRepository } from "@/repositories";
 import { formatCurrencyBRL } from "@/utils";
 import { AppError, AppErrorCode } from "@/utils/errors";
 
@@ -53,7 +53,7 @@ export class UpdateProductService {
 			);
 		}
 
-		if (data && data.price) {
+		if (data?.price) {
 			if (data.price <= 0) {
 				throw new AppError(
 					AppErrorCode.VALIDATION,

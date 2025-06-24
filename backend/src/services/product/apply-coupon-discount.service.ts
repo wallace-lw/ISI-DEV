@@ -1,4 +1,4 @@
-import { CouponRepository, ProductRepository } from "@/repositories";
+import type { CouponRepository, ProductRepository } from "@/repositories";
 import prisma from "@/utils/db";
 import { AppError, AppErrorCode } from "@/utils/errors";
 

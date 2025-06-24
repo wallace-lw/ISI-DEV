@@ -1,5 +1,5 @@
-import { FastifyRequest, FastifyReply } from "fastify";
-import { GetProductService } from "@/services";
+import type { FastifyReply, FastifyRequest } from "fastify";
+import type { GetProductService } from "@/services";
 
 export class GetProductController {
 	constructor(private readonly getProductService: GetProductService) {}

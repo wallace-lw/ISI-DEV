@@ -1,4 +1,4 @@
-import { ProductRepository } from "@/repositories";
+import type { ProductRepository } from "@/repositories";
 import { AppError, AppErrorCode } from "@/utils/errors";
 
 export class GetProductService {

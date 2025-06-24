@@ -1,4 +1,4 @@
-import { ProductRepository } from "@/repositories";
+import type { ProductRepository } from "@/repositories";
 
 export class RestoreProductService {
 	constructor(private productRepository: ProductRepository) {}

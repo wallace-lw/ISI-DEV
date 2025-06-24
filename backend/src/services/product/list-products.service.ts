@@ -1,6 +1,7 @@
-import { Product } from "@/models/product";
-import { ProductRepository } from "@/repositories";
-import { PaginatedResponse, PaginationMeta } from "@/utils";
+import type { Product } from "@/models/product";
+import type { ProductRepository } from "@/repositories";
+import type { PaginatedResponse, PaginationMeta } from "@/utils";
+import { sanitizeString } from "@/utils";
 
 export class ListProductsService {
 	constructor(private readonly productRepository: ProductRepository) {}
@@ -11,6 +12,10 @@ export class ListProductsService {
 		where: any,
 		offset: number,
 	): Promise<PaginatedResponse<Product>> {
+		if (where?.search) {
+			where.search = sanitizeString(where.search);
+		}
+
 		const [products, total] = await this.productRepository.findAll(
 			limit,
 			where,

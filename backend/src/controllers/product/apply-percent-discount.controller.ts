@@ -1,6 +1,6 @@
-import { FastifyRequest, FastifyReply } from "fastify";
-import { ApplyPercentDiscount } from "@/models/product";
-import { ApplyPercentDiscountService } from "@/services";
+import type { FastifyReply, FastifyRequest } from "fastify";
+import type { ApplyPercentDiscount } from "@/models/product";
+import type { ApplyPercentDiscountService } from "@/services";
 
 export class ApplyPercentDiscountController {
 	constructor(

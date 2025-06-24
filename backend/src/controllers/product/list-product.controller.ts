@@ -1,5 +1,5 @@
-import { ListProductsService } from "@/services";
-import { FastifyReply, FastifyRequest } from "fastify";
+import type { FastifyReply, FastifyRequest } from "fastify";
+import type { ListProductsService } from "@/services";
 
 interface ProductQueryParams {
 	page?: number;

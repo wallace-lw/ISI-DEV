@@ -1,5 +1,5 @@
-import { RestoreProductService } from "@/services";
-import { FastifyRequest, FastifyReply } from "fastify";
+import type { FastifyReply, FastifyRequest } from "fastify";
+import type { RestoreProductService } from "@/services";
 
 export class RestoreProductController {
 	constructor(private readonly deleteProductService: RestoreProductService) {}
@@ -7,9 +7,7 @@ export class RestoreProductController {
 		req: FastifyRequest<{ Params: { id: string } }>,
 		reply: FastifyReply,
 	) {
-		try {
-			await this.deleteProductService.execute(req.params.id);
-			reply.code(204).send();
-		} catch (error) {}
+		await this.deleteProductService.execute(req.params.id);
+		reply.code(204).send();
 	}
 }

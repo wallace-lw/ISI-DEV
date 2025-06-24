@@ -1,5 +1,5 @@
-import { RemoveDiscountService } from "@/services";
-import { FastifyRequest, FastifyReply } from "fastify";
+import type { FastifyReply, FastifyRequest } from "fastify";
+import type { RemoveDiscountService } from "@/services";
 
 export class RemoveDiscountController {
 	constructor(private readonly removeDiscountService: RemoveDiscountService) {}

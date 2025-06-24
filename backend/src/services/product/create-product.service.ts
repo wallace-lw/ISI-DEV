@@ -1,10 +1,10 @@
-import { CreateProduct } from "@/models/product";
-import { ProductRepository } from "@/repositories";
+import type { CreateProduct } from "@/models/product";
+import type { ProductRepository } from "@/repositories";
 import {
-  AppError,
-  AppErrorCode,
-  formatCurrencyBRL,
-  normalizeName,
+	AppError,
+	AppErrorCode,
+	formatCurrencyBRL,
+	normalizeName,
 } from "@/utils";
 
 export class CreateProductService {

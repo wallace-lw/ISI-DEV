@@ -1,5 +1,5 @@
-import { Product } from "@/models";
-import { ProductRepository } from "@/repositories";
+import type { Product } from "@/models";
+import type { ProductRepository } from "@/repositories";
 import prisma from "@/utils/db";
 import { AppError, AppErrorCode } from "@/utils/errors";
 

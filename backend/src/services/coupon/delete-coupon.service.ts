@@ -1,4 +1,4 @@
-import { CouponRepository } from "@/repositories";
+import type { CouponRepository } from "@/repositories";
 
 export class DeleteCouponService {
 	constructor(private couponRepository: CouponRepository) {}
