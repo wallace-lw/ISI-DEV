@@ -1,6 +1,6 @@
-import { Button } from "@/components/ui/button";
 import { DynamicIcon } from "lucide-react/dynamic";
 import { Link } from "react-router";
+import { Button } from "@/components/ui/button";
 import { CouponDialog } from "../coupon-dialog";
 import * as T from "./types";
 
