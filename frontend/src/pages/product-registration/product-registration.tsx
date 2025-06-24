@@ -1,23 +1,26 @@
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Loader } from "lucide-react";
+import { DynamicIcon } from "lucide-react/dynamic";
+import { useState } from "react";
+import { Controller, type SubmitHandler, useForm } from "react-hook-form";
 import { ErrorMessage, PageTitle } from "@/components";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { DynamicIcon } from "lucide-react/dynamic";
-import { Controller, useForm, type SubmitHandler } from "react-hook-form";
-
 import { useCreateProduct } from "@/hooks";
 import { formatToCurrency } from "@/utils";
-import { Loader } from "lucide-react";
 import { productSchema } from "./schema";
 import type * as T from "./types";
 
 export const ProductRegistration = () => {
+	const [priceText, setPriceText] = useState("");
+
 	const {
 		control,
 		handleSubmit,
 		formState: { errors },
+		reset,
 	} = useForm<T.ProductSchema>({
 		resolver: zodResolver(productSchema),
 	});
@@ -25,7 +28,12 @@ export const ProductRegistration = () => {
 	const { mutate, isPending } = useCreateProduct();
 
 	const onSubmit: SubmitHandler<T.ProductSchema> = (data) => {
-		mutate(data);
+		mutate(data, {
+			onSuccess: () => {
+				reset();
+				setPriceText("");
+			},
+		});
 	};
 
 	return (
@@ -56,7 +64,11 @@ export const ProductRegistration = () => {
 							control={control}
 							name="name"
 							render={({ field }) => (
-								<Input {...field} placeholder="Informe o nome do produto" />
+								<Input
+									{...field}
+									value={field.value ?? ""}
+									placeholder="Informe o nome do produto"
+								/>
 							)}
 						/>
 
@@ -64,15 +76,7 @@ export const ProductRegistration = () => {
 					</div>
 
 					<div className="grid gap-2">
-						<Label className="flex gap-0">
-							Descrição
-							<DynamicIcon
-								name="asterisk"
-								color="red"
-								size={12}
-								className="mb-1"
-							/>
-						</Label>
+						<Label>Descrição</Label>
 
 						<Controller
 							control={control}
@@ -80,6 +84,7 @@ export const ProductRegistration = () => {
 							render={({ field }) => (
 								<Textarea
 									{...field}
+									value={field.value ?? ""}
 									placeholder="Descrição detalhada do produto"
 									className="h-28"
 								/>
@@ -106,11 +111,11 @@ export const ProductRegistration = () => {
 								name="price"
 								render={({ field }) => (
 									<Input
-										{...field}
-										value={formatToCurrency(field.value || 0)}
+										value={priceText}
 										onChange={(e) => {
 											const raw = e.target.value.replace(/\D/g, "");
 											const numeric = Number(raw) / 100;
+											setPriceText(formatToCurrency(numeric));
 											field.onChange(numeric);
 										}}
 										placeholder="R$ 0,00"
@@ -139,6 +144,7 @@ export const ProductRegistration = () => {
 									<Input
 										{...field}
 										placeholder="0"
+										value={field.value ?? ""}
 										onChange={(e) => {
 											field.onChange(Number(e.target.value));
 										}}

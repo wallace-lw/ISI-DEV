@@ -1,14 +1,14 @@
 import { useMutation } from "@tanstack/react-query";
 import { toast } from "sonner";
-import { createProduct } from "@/services/products";
+import { updateProduct } from "@/services";
 import { apiErrorHandler } from "@/utils/handlers";
 
-export const useCreateProduct = () => {
+export const useUpdateProduct = () => {
 	return useMutation({
 		mutationKey: ["create-products"],
-		mutationFn: createProduct,
+		mutationFn: updateProduct,
 		onSuccess: () => {
-			toast("Produto criado com sucesso!");
+			toast("Produto atualizado!");
 		},
 		onError: (error) => {
 			toast.error(apiErrorHandler(error));
