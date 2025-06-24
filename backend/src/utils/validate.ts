@@ -2,7 +2,7 @@ import { z } from "zod";
 
 // Validar nomes
 export const normalizeName = (name: string): string => {
-	return name.trim().toLowerCase().replace(/\s+/g, " ");
+	return name.trim().replace(/\s+/g, " ");
 };
 
 // Validar cupons
