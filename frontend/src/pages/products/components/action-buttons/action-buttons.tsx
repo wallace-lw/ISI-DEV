@@ -16,7 +16,7 @@ export const ActionButtons = ({ id }: T.ActionButtonsProps) => {
 					<DynamicIcon name="edit" />
 				</Button>
 			</Link>
-			<CouponDialog />
+			<CouponDialog productId={id} />
 			<Button
 				variant={"ghost"}
 				size={"icon"}

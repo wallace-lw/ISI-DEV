@@ -4,7 +4,8 @@ import type { couponCodeSchema } from "./schema";
 export type CouponSchema = z.infer<typeof couponCodeSchema>;
 
 export type CouponProps = {
-	onSuccess: () => void;
+	productId: string;
+	closeDialog: VoidFunction;
 };
 
 export type Coupon = {

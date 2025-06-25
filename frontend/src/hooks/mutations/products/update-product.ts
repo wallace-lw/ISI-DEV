@@ -8,7 +8,7 @@ export const useUpdateProduct = () => {
 		mutationKey: ["create-products"],
 		mutationFn: updateProduct,
 		onSuccess: () => {
-			toast("Produto atualizado!");
+			toast.success("Product updated!");
 		},
 		onError: (error) => {
 			toast.error(apiErrorHandler(error));

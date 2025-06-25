@@ -1,7 +1,9 @@
+export type CouponType = "FIXED" | "PERCENT";
+
 export type Coupon = {
 	id: string;
 	code: string;
-	type: "fixed" | "percentage";
+	type: CouponType;
 	value: number;
 	oneShot: boolean;
 	validFrom: string;
