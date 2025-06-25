@@ -1,7 +1,7 @@
+import { createBrowserRouter } from "react-router";
 import { ErrorBoundary, Layout } from "@/components";
 import { ProductRegistration, Products, ProductUpdate } from "@/pages";
 import { ROUTES } from "@/utils";
-import { createBrowserRouter } from "react-router";
 
 export const router = createBrowserRouter([
 	{

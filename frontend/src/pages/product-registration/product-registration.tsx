@@ -66,8 +66,8 @@ export const ProductRegistration = () => {
 							render={({ field }) => (
 								<Input
 									{...field}
-									value={field.value ?? ""}
 									placeholder="Informe o nome do produto"
+									value={field.value ?? ""}
 								/>
 							)}
 						/>
@@ -111,6 +111,7 @@ export const ProductRegistration = () => {
 								name="price"
 								render={({ field }) => (
 									<Input
+										{...field}
 										value={priceText}
 										onChange={(e) => {
 											const raw = e.target.value.replace(/\D/g, "");

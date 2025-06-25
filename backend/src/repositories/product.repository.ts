@@ -1,4 +1,4 @@
-import { CreateProduct, Product } from "@/models";
+import type { CreateProduct, Product } from "@/models";
 import prisma from "@/utils/db";
 
 export interface ProductRepository {

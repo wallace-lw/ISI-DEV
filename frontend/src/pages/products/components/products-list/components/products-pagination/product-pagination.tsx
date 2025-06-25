@@ -53,7 +53,10 @@ export const ProductPagination = ({
 						{item.label}
 					</PaginationLink>
 				))}
-				<PaginationItem className="bg-background" onClick={handleNextPage}>
+				<PaginationItem
+					className="bg-background rounded-lg"
+					onClick={handleNextPage}
+				>
 					<PaginationNext />
 				</PaginationItem>
 			</PaginationContent>

@@ -37,7 +37,9 @@ export const ProductsList = () => {
 									<TableCell className="max-w-[120px] truncate text-gray-500">
 										{item.description || "Sem descrição"}
 									</TableCell>
-									<TableCell>{formatCurrencyBRL(item.price / 100)}</TableCell>
+									<TableCell>
+										{formatCurrencyBRL(item.originalPrice / 100)}
+									</TableCell>
 									<TableCell>
 										{item.stock === 0 ? (
 											<Label className="bg-red-500 text-white text-xs w-fit px-2 py-1 rounded-lg">

@@ -1,4 +1,4 @@
-import type { z } from "zod/v4";
+import type { z } from "zod";
 import type { couponCodeSchema } from "./schema";
 
 export type CouponSchema = z.infer<typeof couponCodeSchema>;
