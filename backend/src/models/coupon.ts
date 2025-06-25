@@ -1,29 +1,13 @@
 import { z } from "zod";
 import { couponCodeSchema, validateCouponValue } from "@/utils";
 
-export const CouponTypeSchema = z.enum(["fixed", "percent"]);
+export const CouponTypeSchema = z.enum(["FIXED", "PERCENT"]);
 
-export const CouponSchema = z.object({
+export const CouponBaseSchema = z.object({
 	id: z.string().uuid(),
 	code: couponCodeSchema,
 	type: CouponTypeSchema,
-	value: z
-		.number()
-		.int()
-		// @ts-ignore
-		.refine((val, ctx) => {
-			if (!validateCouponValue(val, ctx.path[0] as "fixed" | "percent")) {
-				ctx.addIssue({
-					code: z.ZodIssueCode.custom,
-					message:
-						ctx.path[0] === "percent"
-							? "Valor percentual deve estar entre 1% e 80%"
-							: "Valor fixo deve ser positivo",
-				});
-				return false;
-			}
-			return true;
-		}),
+	value: z.number().int(),
 	oneShot: z.boolean(),
 	validFrom: z.date(),
 	validUntil: z.date(),
@@ -31,7 +15,19 @@ export const CouponSchema = z.object({
 	maxUses: z.number().int().optional().nullable(),
 });
 
-export const CreateCouponSchema = CouponSchema.pick({
+export const CouponSchema = CouponBaseSchema.superRefine((data, ctx) => {
+	if (!validateCouponValue(data.value, data.type)) {
+		ctx.addIssue({
+			code: z.ZodIssueCode.custom,
+			message:
+				data.type === "PERCENT"
+					? "Valor percentual deve estar entre 1% e 80%"
+					: "Valor fixo deve ser positivo",
+		});
+	}
+});
+
+export const CreateCouponSchema = CouponBaseSchema.pick({
 	code: true,
 	type: true,
 	value: true,
@@ -41,7 +37,7 @@ export const CreateCouponSchema = CouponSchema.pick({
 	maxUses: true,
 });
 
-export const UpdateCouponSchema = CouponSchema.pick({
+export const UpdateCouponSchema = CouponBaseSchema.pick({
 	type: true,
 	value: true,
 	oneShot: true,
