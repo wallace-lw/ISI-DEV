@@ -30,13 +30,16 @@ export const ProductsList = () => {
 								))}
 							</TableRow>
 						</TableHeader>
+
 						<TableBody>
 							{data.data.map((item) => (
 								<TableRow key={item.id} className="h-16">
 									<TableCell>{item.name}</TableCell>
+
 									<TableCell className="max-w-[120px] truncate text-gray-500">
 										{item.description || "Sem descrição"}
 									</TableCell>
+
 									<TableCell>
 										<ProductPrice
 											finalPrice={item.finalPrice}
@@ -44,8 +47,9 @@ export const ProductsList = () => {
 											price={item.price}
 										/>
 									</TableCell>
+
 									<TableCell>
-										{item.stock === 0 ? (
+										{item.isOutOfStock ? (
 											<Label className="bg-red-500 text-white text-xs w-fit px-2 py-1 rounded-lg">
 												Esgotado
 											</Label>
@@ -53,6 +57,7 @@ export const ProductsList = () => {
 											item.stock
 										)}
 									</TableCell>
+
 									<TableCell align="right">
 										<ActionButtons id={item.id} />
 									</TableCell>
@@ -60,6 +65,7 @@ export const ProductsList = () => {
 							))}
 						</TableBody>
 					</Table>
+
 					<ProductPagination
 						currentPage={data.meta.page}
 						totalPages={data.meta.totalPages}
