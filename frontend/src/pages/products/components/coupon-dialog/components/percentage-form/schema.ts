@@ -1,5 +1,7 @@
-import { z } from "zod/v4";
+import { z } from "zod";
 
 export const percentualSchema = z.object({
-	percentage: z.string({ error: "* Campo obrigatório" }),
+	code: z
+		.string({ required_error: "* Insira o código" })
+		.transform((val) => val.toLowerCase()),
 });

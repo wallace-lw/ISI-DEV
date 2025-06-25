@@ -1,51 +1,51 @@
 import type { FastifyPluginAsync } from "fastify";
 import {
-  ApplyCouponDiscountController,
-  ApplyPercentDiscountController,
-  CreateCouponController,
-  CreateProductController,
-  DeleteCouponController,
-  DeleteProductController,
-  GetCouponController,
-  GetProductController,
-  ListCouponsController,
-  ListProductsController,
-  RemoveDiscountController,
-  RestoreProductController,
-  UpdateCouponController,
-  UpdateProductController,
+	ApplyCouponDiscountController,
+	ApplyPercentDiscountController,
+	CreateCouponController,
+	CreateProductController,
+	DeleteCouponController,
+	DeleteProductController,
+	GetCouponController,
+	GetProductController,
+	ListCouponsController,
+	ListProductsController,
+	RemoveDiscountController,
+	RestoreProductController,
+	UpdateCouponController,
+	UpdateProductController,
 } from "./controllers";
 import { CouponRepositoryImpl, ProductRepositoryImpl } from "./repositories";
 import {
-  ApplyCouponDiscountService,
-  ApplyPercentDiscountService,
-  CreateCouponService,
-  CreateProductService,
-  DeleteCouponService,
-  DeleteProductService,
-  GetCouponService,
-  GetProductService,
-  ListCouponsService,
-  ListProductsService,
-  RemoveDiscountService,
-  RestoreProductService,
-  UpdateCouponService,
-  UpdateProductService,
+	ApplyCouponDiscountService,
+	CreateCouponService,
+	CreateProductService,
+	DeleteCouponService,
+	DeleteProductService,
+	GetCouponService,
+	GetProductService,
+	ListCouponsService,
+	ListProductsService,
+	RemoveDiscountService,
+	RestoreProductService,
+	UpdateCouponService,
+	UpdateProductService,
 } from "./services";
 
 const productRepository = new ProductRepositoryImpl();
 const couponRepository = new CouponRepositoryImpl();
 
-// Instanciação de serviços
 const createProductSerivce = new CreateProductService(productRepository);
 const listProductsService = new ListProductsService(productRepository);
 const getProductService = new GetProductService(productRepository);
 const updateProductService = new UpdateProductService(productRepository);
 const deleteProductService = new DeleteProductService(productRepository);
 const restoreProductService = new RestoreProductService(productRepository);
-const applyPercentDiscountService = new ApplyPercentDiscountService(
+const applyPercentDiscountService = new ApplyCouponDiscountService(
 	productRepository,
+	couponRepository,
 );
+
 const applyCouponDiscountService = new ApplyCouponDiscountService(
 	productRepository,
 	couponRepository,
@@ -57,7 +57,6 @@ const getCouponService = new GetCouponService(couponRepository);
 const updateCouponService = new UpdateCouponService(couponRepository);
 const deleteCouponService = new DeleteCouponService(couponRepository);
 
-// Instanciação de controllers
 const createProduct = new CreateProductController(createProductSerivce);
 const listProducts = new ListProductsController(listProductsService);
 const getProduct = new GetProductController(getProductService);
@@ -78,7 +77,6 @@ const updateCoupon = new UpdateCouponController(updateCouponService);
 const deleteCoupon = new DeleteCouponController(deleteCouponService);
 
 const routes: FastifyPluginAsync = async (fastify) => {
-	// Rotas de produtos
 	fastify.post("/products", createProduct.execute.bind(createProduct));
 	fastify.get("/products", listProducts.execute.bind(listProducts));
 	fastify.get("/products/:id", getProduct.execute.bind(getProduct));
@@ -101,7 +99,6 @@ const routes: FastifyPluginAsync = async (fastify) => {
 		removeDiscount.execute.bind(removeDiscount),
 	);
 
-	// Rotas de cupons
 	fastify.post("/coupons", createCoupon.execute.bind(createCoupon));
 	fastify.get("/coupons", listCoupons.execute.bind(listCoupons));
 	fastify.get("/coupons/:code", getCoupon.execute.bind(getCoupon));

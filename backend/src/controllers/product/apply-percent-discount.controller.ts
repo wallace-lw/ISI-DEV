@@ -1,10 +1,10 @@
 import type { FastifyReply, FastifyRequest } from "fastify";
 import type { ApplyPercentDiscount } from "@/models/product";
-import type { ApplyPercentDiscountService } from "@/services";
+import type { ApplyCouponDiscountService } from "@/services";
 
 export class ApplyPercentDiscountController {
 	constructor(
-		private readonly applyPercentDiscountService: ApplyPercentDiscountService,
+		private readonly applyCouponDiscountService: ApplyCouponDiscountService,
 	) {}
 	async execute(
 		req: FastifyRequest<{
@@ -13,12 +13,12 @@ export class ApplyPercentDiscountController {
 		}>,
 		reply: FastifyReply,
 	) {
-		const { percentage } = req.body;
+		const { code } = req.body;
 		const productId = req.params.id;
 
-		const response = await this.applyPercentDiscountService.execute(
+		const response = await this.applyCouponDiscountService.execute(
 			productId,
-			percentage,
+			code,
 		);
 
 		reply.send(response);

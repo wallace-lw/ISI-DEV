@@ -7,7 +7,6 @@ export class RemoveDiscountService {
 	constructor(private productRepository: ProductRepository) {}
 	async execute(id: string) {
 		return await prisma.$transaction(async (tx) => {
-			// Buscar produto
 			const product = await this.productRepository.hasDiscount(id);
 
 			if (!product) {
@@ -26,13 +25,6 @@ export class RemoveDiscountService {
 				);
 			}
 
-			// Restaurar preço original
-			await this.productRepository.updatePrice(
-				id,
-				productWithDiscount.originalPrice,
-			);
-
-			// Remover registro de desconto
 			await tx.productDiscount.delete({
 				where: { productId: id },
 			});

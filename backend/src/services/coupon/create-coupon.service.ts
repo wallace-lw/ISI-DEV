@@ -11,6 +11,7 @@ export class CreateCouponService {
 
 		const id = await this.couponRepository.create({
 			...data,
+			value: data.value * 100,
 			type: data.type as CouponType,
 		});
 

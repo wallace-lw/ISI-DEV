@@ -10,9 +10,9 @@ export interface ProductRepository {
 		where: any,
 		offset: number,
 	) => Promise<[Product[], number]>;
-	update: (id: string, data: Partial<Product>) => Promise<void>;
-	delete: (id: string) => Promise<void>;
-	restore: (id: string) => Promise<void>;
+	update: (id: string, data: Partial<Product>) => Promise<Product>;
+	delete: (id: string) => Promise<Product>;
+	restore: (id: string) => Promise<Product>;
 	hasDiscount(productId: string): Promise<boolean>;
 }
 
@@ -82,8 +82,8 @@ export class ProductRepositoryImpl implements ProductRepository {
 		return [products, total];
 	}
 
-	async update(id: string, data: Partial<Product>): Promise<any> {
-		await prisma.product.update({
+	async update(id: string, data: Partial<Product>): Promise<Product> {
+		return await prisma.product.update({
 			where: { id },
 			data: {
 				...data,
@@ -92,15 +92,15 @@ export class ProductRepositoryImpl implements ProductRepository {
 		});
 	}
 
-	async delete(id: string): Promise<any> {
+	async delete(id: string): Promise<Product> {
 		return await prisma.product.update({
 			where: { id },
 			data: { deletedAt: new Date() },
 		});
 	}
 
-	async restore(id: string): Promise<any> {
-		await prisma.product.update({
+	async restore(id: string): Promise<Product> {
+		return await prisma.product.update({
 			where: { id },
 			data: { deletedAt: null },
 		});

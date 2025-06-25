@@ -6,8 +6,8 @@ export interface CouponRepository {
 	find(code: string): Promise<Coupon>;
 	findAll(): Promise<Coupon[]>;
 	update(id: string, data: UpdateCoupon): Promise<void>;
-	delete(id: string): Promise<void>;
-	restore(id: string): Promise<void>;
+	delete(id: string): Promise<Coupon>;
+	restore(id: string): Promise<Coupon>;
 	findValidCouponByCode(code: string): Promise<Coupon | null>;
 	incrementUses(couponId: string): Promise<void>;
 }
@@ -42,15 +42,15 @@ export class CouponRepositoryImpl implements CouponRepository {
 		});
 	}
 
-	async delete(id: string): Promise<any> {
-		await prisma.coupon.update({
+	async delete(id: string): Promise<Coupon> {
+		return await prisma.coupon.update({
 			where: { id },
 			data: { deletedAt: new Date() },
 		});
 	}
 
-	async restore(id: string): Promise<any> {
-		await prisma.coupon.update({
+	async restore(id: string): Promise<Coupon> {
+		return await prisma.coupon.update({
 			where: { id },
 			data: { deletedAt: null },
 		});
@@ -64,6 +64,7 @@ export class CouponRepositoryImpl implements CouponRepository {
 				validUntil: { gte: new Date() },
 			},
 		})) as Coupon | null;
+
 		return couponOrNull;
 	}
 

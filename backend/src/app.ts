@@ -1,12 +1,11 @@
-import Fastify from "fastify";
 import cors from "@fastify/cors";
-import prisma from "./utils/db";
+import Fastify from "fastify";
 import registerRoutes from "./routes";
 import { errorHandler } from "./utils";
+import prisma from "./utils/db";
 
 const app = Fastify({ logger: true });
 
-// Configurar CORS
 app.register(cors, {
 	origin: "*",
 	methods: ["GET", "POST", "PATCH", "DELETE"],
@@ -14,10 +13,8 @@ app.register(cors, {
 
 app.setErrorHandler(errorHandler);
 
-// Registrar rotas
 app.register(registerRoutes);
 
-// Health check
 app.get("/health", async () => {
 	await prisma.$queryRaw`SELECT 1`;
 	return { status: "ok" };

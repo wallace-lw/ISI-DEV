@@ -16,10 +16,10 @@ export class ListProductsController {
 		req: FastifyRequest<{ Querystring: ProductQueryParams }>,
 		reply: FastifyReply,
 	) {
-		const page = parseInt(req.query.page as any) || 1;
-		const limit = parseInt(req.query.limit as any) || 10;
-		const minPrice = parseInt(req.query.minPrice as any) || 1;
-		const maxPrice = parseInt(req.query.maxPrice as any) || 10;
+		const page = parseInt(req.query.page as unknown as string) || 1;
+		const limit = parseInt(req.query.limit as unknown as string) || 10;
+		const minPrice = parseInt(req.query.minPrice as unknown as string) || 1;
+		const maxPrice = parseInt(req.query.maxPrice as unknown as string) || 10;
 		const offset = (page - 1) * limit;
 
 		const where: any = {

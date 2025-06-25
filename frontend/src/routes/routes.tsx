@@ -29,6 +29,6 @@ export const router = createBrowserRouter([
 	},
 	{
 		path: "*",
-		element: "nãooooo",
+		element: "PÁGINA NÃO ENCONTRADA",
 	},
 ]);

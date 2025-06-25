@@ -1,6 +1,6 @@
-import { FastifyRequest, FastifyReply } from "fastify";
-import { UpdateCoupon } from "@/models/coupon";
-import { UpdateCouponService } from "@/services";
+import type { FastifyReply, FastifyRequest } from "fastify";
+import type { UpdateCoupon } from "@/models/coupon";
+import type { UpdateCouponService } from "@/services";
 
 export class UpdateCouponController {
 	constructor(private readonly updateCouponService: UpdateCouponService) {}

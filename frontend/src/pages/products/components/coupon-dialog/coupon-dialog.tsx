@@ -67,7 +67,10 @@ export const CouponDialog = ({ productId }: T.CouponDialogProps) => {
 					</TabsContent>
 
 					<TabsContent value="percentual">
-						<PercentageForm />
+						<PercentageForm
+							productId={productId}
+							closeDialog={() => setOpen(false)}
+						/>
 					</TabsContent>
 				</Tabs>
 			</DialogContent>

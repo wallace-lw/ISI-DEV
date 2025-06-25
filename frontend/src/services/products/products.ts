@@ -69,6 +69,17 @@ export const applyProductDiscount = async ({
 	return data;
 };
 
+export const applyPercentDiscount = async ({
+	code,
+	id,
+}: T.ApplyDiscountInput) => {
+	const { data } = await api.post(`products/${id}/discount/percent`, {
+		code,
+	});
+
+	return data;
+};
+
 export const deleteProduct = async (id: string) => {
 	const { data } = await api.delete(`/products/${id}`);
 

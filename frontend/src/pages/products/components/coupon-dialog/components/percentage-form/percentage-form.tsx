@@ -1,24 +1,46 @@
 import { zodResolver } from "@hookform/resolvers/zod";
+import { Loader } from "lucide-react";
+import { Suspense, useState } from "react";
 import { Controller, type SubmitHandler, useForm } from "react-hook-form";
 import { ErrorMessage } from "@/components";
 import { Button } from "@/components/ui/button";
 import { DialogClose } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { useCouponsList } from "@/hooks";
+import { useApplyPercentDiscount } from "@/hooks/mutations/products/apply-percent-discount";
 import { percentualSchema } from "./schema";
 import type * as T from "./types";
 
-export const PercentageForm = () => {
+export const PercentageForm = ({ productId, closeDialog }: T.PercentProps) => {
+	const [selectedCouponID, setSelecetedCouponID] = useState<string | null>(
+		null,
+	);
+
 	const {
 		control,
 		handleSubmit,
 		formState: { errors },
+		setValue,
 	} = useForm<T.PercentualSchema>({
 		resolver: zodResolver(percentualSchema),
 	});
 
+	const { data } = useCouponsList();
+
+	const { mutate } = useApplyPercentDiscount();
 	const onSubmit: SubmitHandler<T.PercentualSchema> = (data) => {
-		console.log(data);
+		mutate(
+			{
+				id: productId,
+				code: data.code,
+			},
+			{
+				onSuccess: () => {
+					closeDialog();
+				},
+			},
+		);
 	};
 
 	return (
@@ -27,7 +49,7 @@ export const PercentageForm = () => {
 			<div className="grid gap-1">
 				<Controller
 					control={control}
-					name="percentage"
+					name="code"
 					render={({ field }) => (
 						<Input
 							{...field}
@@ -38,11 +60,40 @@ export const PercentageForm = () => {
 						/>
 					)}
 				/>
-				<Label className="text-xs text-gray-400 ml-1">
-					Digite um valor 1% e 100%
-				</Label>
 			</div>
-			<ErrorMessage message={errors.percentage?.message} />
+			<ErrorMessage message={errors.code?.message} />
+
+			<Suspense fallback={<Loader className="w-4 h-4 animate-spin" />}>
+				<div className="grid grid-cols-3 gap-2">
+					{data?.length ? (
+						data
+							?.filter((coupon) => coupon.type === "PERCENT")
+							?.map((coupon) => (
+								<Button
+									key={coupon.code}
+									variant={
+										selectedCouponID === coupon.id ? "default" : "outline"
+									}
+									type="button"
+									onClick={() => {
+										setSelecetedCouponID(coupon.id);
+										setValue("code", coupon.code.toUpperCase(), {
+											shouldValidate: true,
+											shouldDirty: true,
+											shouldTouch: true,
+										});
+									}}
+								>
+									{coupon.code.toUpperCase()}
+								</Button>
+							))
+					) : (
+						<div className="col-span-3">
+							<Label>Não há cupons disponíveis</Label>
+						</div>
+					)}
+				</div>
+			</Suspense>
 
 			<div className="flex justify-end gap-4 mt-4">
 				<DialogClose asChild>

@@ -27,7 +27,7 @@ export const UpdateProductSchema = z.object({
 });
 
 export const ApplyPercentDiscountSchema = z.object({
-	percentage: z.number().int().min(1).max(80),
+	code: z.string(),
 });
 
 export const ApplyCouponSchema = z.object({

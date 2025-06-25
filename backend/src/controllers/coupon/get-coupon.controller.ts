@@ -1,6 +1,6 @@
-import { FastifyRequest, FastifyReply } from "fastify";
+import type { FastifyReply, FastifyRequest } from "fastify";
+import type { GetCouponService } from "@/services";
 import { AppError, AppErrorCode } from "@/utils/errors";
-import { GetCouponService } from "@/services";
 
 export class GetCouponController {
 	constructor(private readonly getCouponService: GetCouponService) {}

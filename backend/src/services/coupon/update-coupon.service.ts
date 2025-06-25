@@ -1,6 +1,6 @@
-import { UpdateCoupon } from "@/models/coupon";
+import type { UpdateCoupon } from "@/models/coupon";
+import type { CouponRepository } from "@/repositories";
 import { AppError, AppErrorCode } from "@/utils/errors";
-import { CouponRepository } from "@/repositories";
 
 export class UpdateCouponService {
 	constructor(private readonly productRepository: CouponRepository) {}
