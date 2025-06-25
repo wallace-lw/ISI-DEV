@@ -48,12 +48,9 @@ export const listProducts = async ({
 	maxPrice = 100000000,
 	has_discount = false,
 }: T.ListProductsProps) => {
-	const { data } = await api.get<T.Paginate<T.ProductWithDiscount>>(
-		"/products",
-		{
-			params: { page, minPrice, maxPrice, has_discount, search, limit },
-		},
-	);
+	const { data } = await api.get<T.Paginate<T.Product>>("/products", {
+		params: { page, minPrice, maxPrice, has_discount, search, limit },
+	});
 
 	return data;
 };

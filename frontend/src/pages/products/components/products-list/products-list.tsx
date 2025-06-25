@@ -43,8 +43,9 @@ export const ProductsList = () => {
 									<TableCell>
 										<ProductPrice
 											finalPrice={item.finalPrice}
-											hasCouponApplied={!!item.discount}
+											hasCouponApplied={item.hasCouponApplied}
 											price={item.price}
+											discount={item.discount}
 										/>
 									</TableCell>
 

@@ -7,7 +7,10 @@ export const ProductPrice = ({
 	discount,
 	hasCouponApplied,
 }: T.ProductPriceProps) => {
-	const isPercentDiscount = discount?.type === "PERCENT" && !hasCouponApplied;
+	console.log(discount);
+
+	const isPercentDiscount =
+		discount?.type.toLowerCase() === "percent" && hasCouponApplied;
 
 	return (
 		<div className="flex items-center gap-1">
@@ -27,7 +30,7 @@ export const ProductPrice = ({
 
 			{isPercentDiscount && (
 				<span className="bg-green-100 text-green-600 text-xs px-2 py-0.5 rounded-full font-light">
-					{discount.value}%
+					{discount.value / 100}%
 				</span>
 			)}
 		</div>

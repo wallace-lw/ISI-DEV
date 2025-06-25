@@ -32,7 +32,7 @@ export type Product = {
 	createdAt: string;
 	updatedAt: string;
 	deletedAt: string | null;
-	discount: number | null;
+	discount?: Discount;
 };
 
 export type Paginate<T> = {
@@ -50,8 +50,6 @@ export type Discount = {
 	value: number;
 	appliedAt: string;
 };
-
-export type ProductWithDiscount = Discount & Product;
 
 export type ApplyDiscountInput = {
 	id: string;
