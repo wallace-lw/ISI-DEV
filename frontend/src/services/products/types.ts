@@ -1,3 +1,5 @@
+import type { CouponType } from "../coupons/types";
+
 export type ProductInput = {
 	name: string;
 	description?: string;
@@ -24,7 +26,7 @@ export type Product = {
 	description: string | null;
 	stock: number;
 	price: number;
-	originalPrice: number;
+	finalPrice: number;
 	createdAt: string;
 	updatedAt: string;
 	deletedAt: string | null;
@@ -39,4 +41,17 @@ export type Paginate<T> = {
 		totalItems: number;
 		totalPages: number;
 	};
+};
+
+export type Discount = {
+	type: CouponType;
+	value: number;
+	appliedAt: string;
+};
+
+export type ProductWithDiscount = Discount & Product;
+
+export type ApplyDiscountInput = {
+	id: string;
+	code: string;
 };
