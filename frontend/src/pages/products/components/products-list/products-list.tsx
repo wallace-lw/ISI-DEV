@@ -11,8 +11,8 @@ import {
 } from "@/components/ui/table";
 import { useProductsList } from "@/hooks";
 import { formatCurrencyBRL } from "@/utils";
-import { ActionButtons } from "./components";
-import { ProductPagination } from "./components/products-pagination/product-pagination";
+import { ActionButtons } from "../action-buttons";
+import { ProductPagination } from "../products-pagination/product-pagination";
 import { tableHeaders } from "./utils";
 
 export const ProductsList = () => {
