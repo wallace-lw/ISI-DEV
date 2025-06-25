@@ -26,6 +26,8 @@ export type Product = {
 	description: string | null;
 	stock: number;
 	price: number;
+	isOutOfStock: boolean;
+	hasCouponApplied: boolean;
 	finalPrice: number;
 	createdAt: string;
 	updatedAt: string;
