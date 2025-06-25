@@ -2,6 +2,7 @@ import { DynamicIcon } from "lucide-react/dynamic";
 import { Link } from "react-router";
 import { Button } from "@/components/ui/button";
 import { CouponDialog } from "../coupon-dialog";
+import { DeleteProductDialog } from "../delete-product-dialog";
 import * as T from "./types";
 
 export const ActionButtons = ({ id }: T.ActionButtonsProps) => {
@@ -17,13 +18,7 @@ export const ActionButtons = ({ id }: T.ActionButtonsProps) => {
 				</Button>
 			</Link>
 			<CouponDialog productId={id} />
-			<Button
-				variant={"ghost"}
-				size={"icon"}
-				className="size-5 hover:text-red-600 transition-colors"
-			>
-				<DynamicIcon name="trash" />
-			</Button>
+			<DeleteProductDialog id={id} />
 		</div>
 	);
 };
