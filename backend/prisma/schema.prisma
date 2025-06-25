@@ -8,35 +8,39 @@ datasource db {
 }
 
 model Product {
-  id            String   @id @default(uuid())
-  name          String   @unique
-  description   String?
-  stock         Int
-  price         Int
-  originalPrice Int
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime? @updatedAt
-  deletedAt     DateTime?
+  id                    String   @id @default(uuid())
+  name                  String   @unique
+  description           String?
+  stock                 Int
+  price                 Int
+  createdAt             DateTime  @default(now())
+  updatedAt             DateTime? @updatedAt
+  deletedAt             DateTime?
 
-  discount ProductDiscount?
+  discount              ProductDiscount?
+}
+
+enum CouponType {
+  FIXED
+  PERCENT
 }
 
 model Coupon {
   id          String   @id @default(uuid())
   code        String   @unique
-  type        String   // 'fixed' ou 'percent'
-  value       Int      // em centavos ou percentual (ex: 10% = 1000)
+  type        CouponType
+  value       Int     
   oneShot     Boolean
   validFrom   DateTime
   validUntil  DateTime
   usesCount   Int      @default(0)
   maxUses     Int?
 
-  discounts ProductDiscount[]
+  discounts   ProductDiscount[]
 
-  createdAt DateTime  @default(now())
-  updatedAt DateTime? @updatedAt
-  deletedAt DateTime?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime? @updatedAt
+  deletedAt   DateTime?
 }
 
 model ProductDiscount {
