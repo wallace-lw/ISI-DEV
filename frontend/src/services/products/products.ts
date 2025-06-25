@@ -68,3 +68,9 @@ export const applyProductDiscount = async ({
 
 	return data;
 };
+
+export const deleteProduct = async (id: string) => {
+	const { data } = await api.delete(`/products/${id}`);
+
+	return data;
+};
