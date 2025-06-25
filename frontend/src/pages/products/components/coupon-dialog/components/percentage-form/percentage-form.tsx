@@ -7,8 +7,7 @@ import { Button } from "@/components/ui/button";
 import { DialogClose } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { useCouponsList } from "@/hooks";
-import { useApplyPercentDiscount } from "@/hooks/mutations/products/apply-percent-discount";
+import { useApplyPercentDiscount, useCouponsList } from "@/hooks";
 import { percentualSchema } from "./schema";
 import type * as T from "./types";
 
