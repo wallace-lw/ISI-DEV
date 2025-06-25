@@ -6,7 +6,6 @@ export class ApplyPercentDiscountService {
 	constructor(private productRepository: ProductRepository) {}
 	async execute(id: string, percentage: number) {
 		const result = await prisma.$transaction(async (_tx) => {
-			// Verificar se já existe desconto
 			const discountExists = await this.productRepository.hasDiscount(id);
 
 			if (discountExists) {
@@ -17,17 +16,14 @@ export class ApplyPercentDiscountService {
 				);
 			}
 
-			// Atualizar preço com desconto
 			const product = await this.productRepository.find(id);
 
 			if (!product) {
 				throw new AppError(AppErrorCode.NOT_FOUND, "Product not found", 404);
 			}
 
-			const discountAmount = Math.floor(
-				(product.originalPrice * percentage) / 100,
-			);
-			const finalPrice = product.originalPrice - discountAmount;
+			const discountAmount = Math.floor((product.price * percentage) / 100);
+			const finalPrice = product.price - discountAmount;
 
 			if (finalPrice < 1) {
 				throw new AppError(
@@ -37,7 +33,6 @@ export class ApplyPercentDiscountService {
 				);
 			}
 
-			await this.productRepository.updatePrice(id, finalPrice);
 			return this.productRepository.find(id);
 		});
 

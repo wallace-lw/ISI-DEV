@@ -1,25 +1,22 @@
 import { z } from "zod";
+import type { CouponType } from "@/models";
 
-// Validar nomes
 export const normalizeName = (name: string): string => {
 	return name.trim().replace(/\s+/g, " ");
 };
 
-// Validar cupons
 export const couponCodeSchema = z.string().regex(/^[a-zA-Z0-9]{4,20}$/);
 
-// Validar valores de cupons
 export const validateCouponValue = (
 	value: number,
-	type: "fixed" | "percent",
+	type: CouponType,
 ): boolean => {
-	if (type === "percent") {
-		return value >= 100 && value <= 8000; // 1% a 80% em centavos (100 = 1%)
+	if (type === "PERCENT") {
+		return value >= 100 && value <= 8000;
 	}
 	return value > 0;
 };
 
-// Paginação
 export interface PaginationMeta {
 	page: number;
 	limit: number;
