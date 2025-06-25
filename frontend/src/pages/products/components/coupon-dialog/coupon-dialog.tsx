@@ -11,8 +11,9 @@ import {
 } from "@/components/ui/dialog";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { CouponForm, PercentageForm } from "./components";
+import type * as T from "./types";
 
-export const CouponDialog = () => {
+export const CouponDialog = ({ productId }: T.CouponDialogProps) => {
 	const [open, setOpen] = useState(false);
 
 	return (
@@ -59,7 +60,10 @@ export const CouponDialog = () => {
 					</DialogHeader>
 
 					<TabsContent value="coupon" className="mt-2">
-						<CouponForm onSuccess={() => setOpen(false)} />
+						<CouponForm
+							closeDialog={() => setOpen(false)}
+							productId={productId}
+						/>
 					</TabsContent>
 
 					<TabsContent value="percentual">
