@@ -10,9 +10,9 @@ import {
 	TableRow,
 } from "@/components/ui/table";
 import { useProductsList } from "@/hooks";
-import { formatCurrencyBRL } from "@/utils";
 import { ActionButtons } from "../action-buttons";
 import { ProductPagination } from "../products-pagination/product-pagination";
+import { ProductPrice } from "./components";
 import { tableHeaders } from "./utils";
 
 export const ProductsList = () => {
@@ -22,9 +22,9 @@ export const ProductsList = () => {
 		<Suspense fallback={<Loader className="w-4 h-4 mr-2 animate-spin" />}>
 			{data?.data.length ? (
 				<>
-					<Table className="min-w-[768px] bg-background shadow-sm rounded-lg mt-4">
+					<Table className="min-w-[768px] bg-background rounded-lg mt-4">
 						<TableHeader>
-							<TableRow className="h-16">
+							<TableRow className="h-12">
 								{tableHeaders.map((item) => (
 									<TableHead key={item.value}>{item.label}</TableHead>
 								))}
@@ -32,13 +32,17 @@ export const ProductsList = () => {
 						</TableHeader>
 						<TableBody>
 							{data.data.map((item) => (
-								<TableRow key={item.id} className="h-12">
+								<TableRow key={item.id} className="h-16">
 									<TableCell>{item.name}</TableCell>
 									<TableCell className="max-w-[120px] truncate text-gray-500">
 										{item.description || "Sem descrição"}
 									</TableCell>
 									<TableCell>
-										{formatCurrencyBRL(item.originalPrice / 100)}
+										<ProductPrice
+											finalPrice={item.finalPrice}
+											hasCouponApplied={!!item.discount}
+											price={item.price}
+										/>
 									</TableCell>
 									<TableCell>
 										{item.stock === 0 ? (
