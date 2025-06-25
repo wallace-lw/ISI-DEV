@@ -1,8 +1,8 @@
-import { Coupon, UpdateCoupon } from "@/models";
+import type { Coupon, CouponType, CreateCoupon, UpdateCoupon } from "@/models";
 import prisma from "@/utils/db";
 
 export interface CouponRepository {
-	create(data: Coupon): Promise<string>;
+	create(data: CreateCoupon): Promise<string>;
 	find(code: string): Promise<Coupon>;
 	findAll(): Promise<Coupon[]>;
 	update(id: string, data: UpdateCoupon): Promise<void>;
@@ -13,8 +13,13 @@ export interface CouponRepository {
 }
 
 export class CouponRepositoryImpl implements CouponRepository {
-	async create(data: Coupon): Promise<string> {
-		const result = await prisma.coupon.create({ data: data as any });
+	async create(data: CreateCoupon): Promise<string> {
+		const result = await prisma.coupon.create({
+			data: {
+				...data,
+				type: data.type as CouponType,
+			},
+		});
 		return result?.id;
 	}
 
@@ -36,7 +41,7 @@ export class CouponRepositoryImpl implements CouponRepository {
 			data: data,
 		});
 	}
-  
+
 	async delete(id: string): Promise<any> {
 		await prisma.coupon.update({
 			where: { id },
