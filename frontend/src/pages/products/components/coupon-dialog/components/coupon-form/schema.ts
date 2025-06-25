@@ -1,5 +1,7 @@
 import * as z from "zod";
 
 export const couponCodeSchema = z.object({
-	coupon: z.string().optional(),
+	code: z
+		.string({ required_error: "* Insira o código" })
+		.transform((val) => val.toLowerCase()),
 });
