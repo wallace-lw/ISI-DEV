@@ -1,4 +1,5 @@
-import type { Product } from "@/models/product";
+import type { PublicProductDTO } from "@/dtos/product.dto";
+import { mapProductToPublicDTO } from "@/mappers";
 import type { ProductRepository } from "@/repositories";
 import type { PaginatedResponse, PaginationMeta } from "@/utils";
 import { sanitizeString } from "@/utils";
@@ -11,7 +12,7 @@ export class ListProductsService {
 		limit: number,
 		where: any,
 		offset: number,
-	): Promise<PaginatedResponse<Product>> {
+	): Promise<PaginatedResponse<PublicProductDTO>> {
 		if (where?.search) {
 			where.search = sanitizeString(where.search);
 		}
@@ -30,7 +31,7 @@ export class ListProductsService {
 		};
 
 		return {
-			data: products,
+			data: products.map((product) => mapProductToPublicDTO(product)),
 			meta,
 		};
 	}

@@ -1,3 +1,4 @@
+import { mapProductToPublicDTO } from "@/mappers";
 import type { ProductRepository } from "@/repositories";
 import { AppError, AppErrorCode } from "@/utils/errors";
 
@@ -11,6 +12,6 @@ export class GetProductService {
 			throw new AppError(AppErrorCode.NOT_FOUND, "Product not found", 404);
 		}
 
-		return product;
+		return mapProductToPublicDTO(product);
 	}
 }
