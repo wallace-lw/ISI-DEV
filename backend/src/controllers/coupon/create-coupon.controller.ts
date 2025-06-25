@@ -9,7 +9,10 @@ export class CreateCouponController {
 		reply: FastifyReply,
 	) {
 		const data = req.body;
-		const coupon = await this.createCouponService.execute(data);
+		const coupon = await this.createCouponService.execute({
+			...data,
+			code: data.code.toLowerCase(),
+		});
 		reply.code(201).send(coupon);
 	}
 }
