@@ -19,7 +19,7 @@ export const mapProductToPublicDTO = (
 
 	const finalPrice =
 		discount?.type === "PERCENT"
-			? Math.round(price - price * (discount.value / 100))
+			? Math.round(price * (1 - discount.value / 10000))
 			: discount?.type === "FIXED"
 				? price - discount.value
 				: price;

@@ -22,7 +22,7 @@ export class ApplyPercentDiscountService {
 				throw new AppError(AppErrorCode.NOT_FOUND, "Product not found", 404);
 			}
 
-			const discountAmount = Math.floor((product.price * percentage) / 100);
+			const discountAmount = Math.floor(product.price * (percentage / 10000));
 			const finalPrice = product.price - discountAmount;
 
 			if (finalPrice < 1) {
