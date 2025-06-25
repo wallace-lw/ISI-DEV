@@ -1,6 +1,6 @@
-import { FastifyRequest, FastifyReply } from "fastify";
-import { CreateCoupon } from "@/models/coupon";
-import { CreateCouponService } from "@/services";
+import type { FastifyReply, FastifyRequest } from "fastify";
+import type { CreateCoupon } from "@/models/coupon";
+import type { CreateCouponService } from "@/services";
 
 export class CreateCouponController {
 	constructor(private createCouponService: CreateCouponService) {}
@@ -8,7 +8,7 @@ export class CreateCouponController {
 		req: FastifyRequest<{ Body: CreateCoupon }>,
 		reply: FastifyReply,
 	) {
-		const data = req.body as any;
+		const data = req.body;
 		const coupon = await this.createCouponService.execute(data);
 		reply.code(201).send(coupon);
 	}

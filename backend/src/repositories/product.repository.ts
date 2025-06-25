@@ -14,17 +14,11 @@ export interface ProductRepository {
 	delete: (id: string) => Promise<void>;
 	restore: (id: string) => Promise<void>;
 	hasDiscount(productId: string): Promise<boolean>;
-	updatePrice(id: string, newPrice: number): Promise<void>;
 }
 
 export class ProductRepositoryImpl implements ProductRepository {
 	async create(data: CreateProduct): Promise<string> {
-		const product = await prisma.product.create({
-			data: {
-				...data,
-				originalPrice: data.price,
-			},
-		});
+		const product = await prisma.product.create({ data });
 
 		return product.id;
 	}
@@ -32,7 +26,18 @@ export class ProductRepositoryImpl implements ProductRepository {
 	async find(id: string): Promise<Product> {
 		const product = await prisma.product.findUnique({
 			where: { id, deletedAt: null },
-			include: { discount: true },
+			include: {
+				discount: {
+					include: {
+						coupon: {
+							select: {
+								type: true,
+								value: true,
+							},
+						},
+					},
+				},
+			},
 		});
 
 		return product as Product;
@@ -58,7 +63,18 @@ export class ProductRepositoryImpl implements ProductRepository {
 				skip: offset,
 				take: limit,
 				orderBy: { createdAt: "desc" },
-				include: { discount: true },
+				include: {
+					discount: {
+						include: {
+							coupon: {
+								select: {
+									type: true,
+									value: true,
+								},
+							},
+						},
+					},
+				},
 			}),
 			prisma.product.count({ where }),
 		]);
@@ -95,12 +111,5 @@ export class ProductRepositoryImpl implements ProductRepository {
 			where: { productId },
 		});
 		return !!discount;
-	}
-
-	async updatePrice(id: string, newPrice: number): Promise<void> {
-		await prisma.product.update({
-			where: { id },
-			data: { price: newPrice },
-		});
 	}
 }

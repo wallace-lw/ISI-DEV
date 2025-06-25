@@ -7,7 +7,6 @@ export const ProductSchema = z.object({
 	description: z.string().max(300).optional().nullable(),
 	stock: z.number().int().min(0).max(999999),
 	price: z.number().int().min(1),
-	originalPrice: z.number().int().min(1),
 	createdAt: z.date(),
 	updatedAt: z.date().optional().nullable(),
 	deletedAt: z.date().optional().nullable(),
