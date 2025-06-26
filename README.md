@@ -1,5 +1,23 @@
 # Desafio DEV
 
+#### OBS: 
+Caso houver algum problema com o prisma ao rodar o projeto backend, recomendo que siga os seguintes passos (vou deixar no readme também):
+
+rm -rf node_modules
+rm pnpm-lock.yaml
+pnpm install
+
+em seguida:
+pnpx prisma generate
+
+pnpm run dev
+
+Peço perdão pelo inconveniente.
+
+Segue anexo abaixo, desde já agradeço a atenção e a oportunidade.
+
+---
+
 ## 🚀 Tecnologias
 
 - **Frontend**: React (Vite)
