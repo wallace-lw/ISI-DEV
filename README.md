@@ -95,7 +95,7 @@ curl -X POST "http://localhost:3000/coupons" \
   -H "Content-Type: application/json" \
   -d '{
     "code": "PROMO20",
-    "type": "percent",
+    "type": "PERCENT", // Em uppercase
     "value": 2000, // (20%)
     "oneShot": true,
     "validFrom": "2025-01-01T00:00:00Z",
